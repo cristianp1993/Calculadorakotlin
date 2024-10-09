@@ -8,20 +8,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import com.example.calculadora.ui.theme.CalculadoraTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val calculatorViewModel = ViewModelProvider(this)[CalculatorViewModel::class.java]
+
         enableEdgeToEdge()
         setContent {
             CalculadoraTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Calculator(modifier = Modifier.padding(innerPadding))
+                    Calculator(modifier = Modifier.padding(innerPadding),calculatorViewModel)
                 }
             }
         }
@@ -29,16 +30,3 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Composable
-fun CalculatorScreen() {
-    CalculadoraTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Calculator(modifier = Modifier.padding(innerPadding))
-        }
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun PreviewCalculatorScreen() {
-    CalculatorScreen()
-}
